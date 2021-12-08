@@ -45,6 +45,32 @@ class Board:
                 rows.append(l)
             self.board.append(rows)
         self.GameZone.grid()
+    def Shift_Opposite(self):
+        for ind in range(4):
+            i = 0
+            j = 3
+            while (i < j):
+                (self.gridCell[ind][i], self.gridCell[ind][j]) =( self.gridCell[ind][j], self.gridCell[ind][i])
+                i += 1
+                j -= 1    
+    def Grid_Compress(self):
+        temp = [[0] * 4 for i in range(4)]
+        for i in range(4):
+            cnt = 0
+            for j in range(4):
+                if self.gridCell[i][j] != 0:
+                    temp[i][cnt] = self.gridCell[i][j]
+                    cnt += 1
+        self.gridCell = temp
+    def Grid_Merge(self):
+        for i in range(4):
+            for j in range(4 - 1):
+                if self.gridCell[i][j] == self.gridCell[i][j + 1] and self.gridCell[i][j] != 0:
+                    self.gridCell[i][j] *= 2
+                    self.gridCell[i][j + 1] = 0
+                    self.score += self.gridCell[i][j]
+                    
+
 class Game:
     def __init__(self, gameWindow):
         self.gameWindow = gameWindow
